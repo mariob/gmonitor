@@ -32,7 +32,6 @@ update: ${PLASMOID_PKG}
 view:
 	plasmoidviewer ${CURDIR}
 
-
 clean:
 	rm -f ${PLASMOID_PKG}
 
