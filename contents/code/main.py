@@ -64,7 +64,7 @@ class GMonitorApplet(plasmascript.Applet):
         self.settings = {}
         self.settings['feed_url'] = 'https://mail.google.com/mail/feed/atom/'
         self.settings['mail_url'] = 'https://mail.google.com'
-        self.settings['interval'] = 20 # secs
+        self.settings['interval'] = 60 # secs
 
     def init(self):
         """ Create UI and connect to signals """
