@@ -89,28 +89,28 @@ class GMonitorApplet(plasmascript.Applet):
         # Connect open_browser() to the 'clicked' signal emitted by
         # the MailFrame when the icon is clicked.
         QtCore.QObject.connect(self.mailFrame, QtCore.SIGNAL('clicked()'),
-                               self.open_browser)
+                               self.openBrowser)
 
         # Create a timer that will poll the feed. This will not actually
         # start the timer yet.
         self.timer = QtCore.QTimer()
         QtCore.QObject.connect(self.timer, QtCore.SIGNAL('timeout()'),
-                               self.fetch_feed)
+                               self.fetchFeed)
 
         # Trigger a manual fetch the first time
-        self.fetch_feed()
+        self.fetchFeed()
 
         # Start the poll timer
         self.timer.start(self.settings["interval"] * 1000)
 
-    def fetch_feed(self):
+    def fetchFeed(self):
         """ Download feed """
         url = kdecore.KUrl(self.settings['feed_url'])
         job = KIO.storedGet(url, KIO.Reload, KIO.HideProgressInfo)
         QtCore.QObject.connect(job, QtCore.SIGNAL("result(KJob*)"),
-                               self.parse_feed)
+                               self.parseFeed)
 
-    def parse_feed(self, job):    
+    def parseFeed(self, job):
         """ Parse the mail feed from google and emit a signal """
         if job.error():
             job.ui.showErrorDialog()
@@ -121,7 +121,7 @@ class GMonitorApplet(plasmascript.Applet):
         QtCore.QObject.emit(self, QtCore.SIGNAL('mailcount(int)'),
                             int(d.feed.fullcount))
 
-    def open_browser(self):
+    def openBrowser(self):
         """ Invoke a new browser instance loading 'mail_url' """
         kdecore.KToolInvocation.invokeBrowser(self.settings['mail_url'])
 
